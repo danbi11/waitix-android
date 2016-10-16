@@ -1,4 +1,4 @@
-package com.graduationproject.danbi.waitix;
+package com.graduationproject.danbi.waitix.nfc;
 
 import android.content.Context;
 import android.nfc.NdefMessage;

@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 
 import com.graduationproject.danbi.waitix.anim.CloseAnimation;
 import com.graduationproject.danbi.waitix.anim.ExpandAnimation;
+import com.graduationproject.danbi.waitix.nfc.NdefRead;
+import com.graduationproject.danbi.waitix.nfc.Tools;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     /* slide menu */
