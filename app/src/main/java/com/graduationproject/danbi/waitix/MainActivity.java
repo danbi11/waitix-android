@@ -1,6 +1,10 @@
 package com.graduationproject.danbi.waitix;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -28,12 +32,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button bt_left, btn1, btn2, btn3, btn4;
     private ImageView btn_menu;
 
+    /* NFC */
+    private static final String MIMETYPE = "text/plain";
+    private NfcAdapter nfcAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initSildeMenu();
+
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if(Tools.checkNFC(nfcAdapter)) {
+            intentHandler(getIntent());
+        } else {
+            Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
+        }
     }
 
     private void initSildeMenu() {
@@ -137,6 +154,36 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (view instanceof ViewGroup) {
                     enableDisableViewGroup((ViewGroup) view, enabled);
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Tools.foregroundDispatchSetup(this, nfcAdapter, MIMETYPE, new String[][]{});
+    }
+
+    @Override
+    protected void onPause() {
+        nfcAdapter.disableForegroundDispatch(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        intentHandler(intent);
+    }
+
+    private void intentHandler(Intent intent) {
+        String intentAction = intent.getAction();
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intentAction) ||
+                NfcAdapter.ACTION_TECH_DISCOVERED.equals(intentAction)) {
+            if (MIMETYPE.equals(intent.getType())) {
+                Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                new NdefRead(getApplicationContext()).execute(Ndef.get(nfcTag));
+            } else {
+                Tools.displayToast(getApplicationContext(), "Mime type error.");
             }
         }
     }
