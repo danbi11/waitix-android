@@ -45,7 +45,10 @@ public class NdefRead extends AsyncTask<Ndef, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result != null) {
-            Tools.displayToast(context, result);
+            Tools.displayToast(context, "매장코드 : "+ result); //nfc태그로 가져온 매장코드
+
+
+
         }
     }
 }

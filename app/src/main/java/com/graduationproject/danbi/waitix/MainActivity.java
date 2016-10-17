@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +22,7 @@ import com.graduationproject.danbi.waitix.nfc.NdefRead;
 import com.graduationproject.danbi.waitix.nfc.Tools;
 
 public class MainActivity extends Activity implements View.OnClickListener {
+
     /* slide menu */
     private DisplayMetrics metrics;
     private LinearLayout ll_mainLayout;
@@ -31,7 +31,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private FrameLayout.LayoutParams leftMenuLayoutPrams;
     private int leftMenuWidth;
     private static boolean isLeftExpanded;
-    private Button bt_left, btn1, btn2, btn3, btn4;
     private ImageView btn_menu;
 
     /* NFC */
