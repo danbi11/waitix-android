@@ -15,9 +15,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.graduationproject.danbi.waitix.anim.CloseAnimation;
 import com.graduationproject.danbi.waitix.anim.ExpandAnimation;
+import com.graduationproject.danbi.waitix.nfc.AfterNfcRead;
 import com.graduationproject.danbi.waitix.nfc.NdefRead;
 import com.graduationproject.danbi.waitix.nfc.Tools;
 
@@ -32,10 +34,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int leftMenuWidth;
     private static boolean isLeftExpanded;
     private ImageView btn_menu;
+    private TextView btn_pastWaitingList;
 
     /* NFC */
     private static final String MIMETYPE = "text/plain";
     private NfcAdapter nfcAdapter;
+
+    /*  */
+    private TextView tv_waitingNum;
 
 
     @Override
@@ -50,8 +56,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if(Tools.checkNFC(nfcAdapter)) {
             intentHandler(getIntent());
         } else {
-            Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
+            Tools.displayToast(this, "대기표를 발급받기 위해서는\nNFC 연결이 필요합니다.");
         }
+
+        tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum) ;
     }
 
     private void initSildeMenu() {
@@ -78,6 +86,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // init ui
         btn_menu = (ImageView) findViewById(R.id.btn_menu);
         btn_menu.setOnClickListener(this);
+
+        btn_pastWaitingList = (TextView) findViewById(R.id.btn_pastWaitingList);
+        btn_pastWaitingList.setOnClickListener(this);
+
 
     }
 
@@ -182,11 +194,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 NfcAdapter.ACTION_TECH_DISCOVERED.equals(intentAction)) {
             if (MIMETYPE.equals(intent.getType())) {
                 Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefRead(getApplicationContext()).execute(Ndef.get(nfcTag));
+                NdefRead ndefRead = new NdefRead(getApplicationContext(), new AfterNfcRead() {
+                    @Override
+                    public void afterRead() {
+                        Intent intentToMain = new Intent(getApplicationContext(), NfcInputActivity.class);
+                        startActivity(intentToMain);
+                    }
+                });
+                ndefRead.execute(Ndef.get(nfcTag));
+                tv_waitingNum.setText("");
+
             } else {
                 Tools.displayToast(getApplicationContext(), "Mime type error.");
             }
         }
+    }
+    public void textviewintent(String tv){
+        tv_waitingNum.setText(tv);
     }
 
     @Override
@@ -196,6 +220,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.btn_menu:
                 menuLeftSlideAnimationToggle();
                 break;
+
+            case R.id.btn_pastWaitingList:
+                Intent intentToWaitingList = new Intent(getApplicationContext(), WaitingListActivity.class);
+                isLeftExpanded = false;
+                finish();
+                startActivity(intentToWaitingList);
+
 
         }
     }

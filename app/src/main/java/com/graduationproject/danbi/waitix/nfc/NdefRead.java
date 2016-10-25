@@ -10,10 +10,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 public class NdefRead extends AsyncTask<Ndef, Void, String> {
-    private Context context;
 
-    public NdefRead(Context context) {
+    private Context context;
+    private AfterNfcRead afterNfcRead;
+
+    public NdefRead(Context context, AfterNfcRead afterNfcRead) {
         this.context = context;
+        this.afterNfcRead = afterNfcRead;
     }
 
     @Override
@@ -43,12 +46,9 @@ public class NdefRead extends AsyncTask<Ndef, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if(result != null) {
-            Tools.displayToast(context, "매장코드 : "+ result); //nfc태그로 가져온 매장코드
-
-
-
-        }
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        afterNfcRead.afterRead();
     }
+
 }

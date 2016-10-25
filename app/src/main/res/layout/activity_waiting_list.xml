@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.graduationproject.danbi.waitix.WaitingListActivity">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff393c46"
+            android:gravity="left"
+            android:orientation="vertical"
+            android:textColor="#ff000000">
+
+            <!-- include -->
+
+            <include
+                android:id="@+id/ic_leftslidemenu"
+                layout="@layout/leftslidemenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+        <!-- slide layout -->
+
+        <LinearLayout
+            android:id="@+id/ll_mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#e3dfda"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/ll_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/btn_menu"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/user_main_menu" />
+
+                    <TextView
+                        android:text="지난 대기표 조회"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/btn_menu"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/textView5"
+                        android:layout_weight="1" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/RelativeLayout">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="70dp"
+                            android:text="들어갈 곳"
+                            android:textColor="#666666" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_empty"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

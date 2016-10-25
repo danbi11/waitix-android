@@ -39,7 +39,7 @@
             android:id="@+id/ll_mainlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/test"
+            android:background="@drawable/user_main_bg"
             android:gravity="left"
             android:orientation="vertical">
 
@@ -54,15 +54,17 @@
 
                     <ImageView
                         android:id="@+id/btn_menu"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:background="#666666" />
-                        //android:background="@drawable/thin_menu_wh" />
+                        android:background="@drawable/user_main_menu"
+                         />
+                        <!--android:background="#666666" />-->
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -93,6 +95,15 @@
                             android:textColor="#ffffff" />
 
                         <TextView
+                            android:text="000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/textView2"
+                            android:layout_toRightOf="@+id/textView2"
+                            android:layout_marginLeft="20dp"
+                            android:id="@+id/tv_waitingNum"/>
+
+                        <TextView
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -102,6 +113,14 @@
                             android:layout_marginTop="30dp"
                             android:text="예상대기시간"
                             android:textColor="#ffffff" />
+                        <TextView
+                            android:text="000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/textView3"
+                            android:layout_toRightOf="@+id/textView3"
+                            android:layout_marginLeft="20dp"
+                            android:id="@+id/tv_waitingTime"/>
 
                         <TextView
                             android:id="@+id/textView4"
@@ -113,6 +132,20 @@
                             android:layout_marginTop="30dp"
                             android:text="남은대기팀수"
                             android:textColor="#ffffff" />
+                        <TextView
+                            android:text="000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/textView4"
+                            android:layout_toRightOf="@+id/textView4"
+                            android:layout_marginLeft="20dp"
+                            android:id="@+id/tv_waitingTeam"/>
+
+                        <LinearLayout
+                            android:id="@+id/contents"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></LinearLayout>
 
                         <ImageView
                             android:id="@+id/imageView4"
@@ -129,7 +162,9 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:background="@android:color/transparent"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal" >
+
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
