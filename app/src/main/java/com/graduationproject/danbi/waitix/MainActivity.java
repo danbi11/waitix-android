@@ -15,7 +15,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.graduationproject.danbi.waitix.anim.CloseAnimation;
 import com.graduationproject.danbi.waitix.anim.ExpandAnimation;
@@ -33,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private FrameLayout.LayoutParams leftMenuLayoutPrams;
     private int leftMenuWidth;
     private static boolean isLeftExpanded;
-    private ImageView btn_menu;
+    private RelativeLayout btn_menu;
     private TextView btn_pastWaitingList;
 
     /* NFC */
@@ -42,6 +44,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     /*  */
     private TextView tv_waitingNum;
+    ImageView iv_cancel;
+
+    IssueCancelDialog issueCancelDialog;
 
 
     @Override
@@ -60,6 +65,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum) ;
+        iv_cancel = (ImageView)findViewById(R.id.iv_cancel);
+        iv_cancel.setOnClickListener(this);
     }
 
     private void initSildeMenu() {
@@ -84,7 +91,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ll_menuLayout.setLayoutParams(leftMenuLayoutPrams);
 
         // init ui
-        btn_menu = (ImageView) findViewById(R.id.btn_menu);
+        btn_menu = (RelativeLayout) findViewById(R.id.btn_menu);
         btn_menu.setOnClickListener(this);
 
         btn_pastWaitingList = (TextView) findViewById(R.id.btn_pastWaitingList);
@@ -220,14 +227,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.btn_menu:
                 menuLeftSlideAnimationToggle();
                 break;
+            case  R.id.iv_cancel:
+                issueCancelDialog = new IssueCancelDialog(MainActivity.this);
+                issueCancelDialog.show();
+
+                /*
+                new AlertDialog.Builder(this)
+//                        .setTitle("히든목록") //팝업창 타이틀바
+                        .setMessage("정말 취소하시겠습니까?")  //팝업창 내용
+                        .setNeutralButton("닫기",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dlg, int sumthin) {
+                                //닫기 버튼을 누르면 아무것도 안하고 닫기 때문에 그냥 비움
+                            }
+                        }).show(); // 팝업창 보여줌*/
+                break;
 
             case R.id.btn_pastWaitingList:
                 Intent intentToWaitingList = new Intent(getApplicationContext(), WaitingListActivity.class);
                 isLeftExpanded = false;
                 finish();
                 startActivity(intentToWaitingList);
+                break;
 
 
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (isLeftExpanded){
+            menuLeftSlideAnimationToggle();
+        }else {
+            Toast.makeText(this, "WAITIX를 종료합니다.", Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
         }
     }
 }

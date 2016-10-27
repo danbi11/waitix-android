@@ -52,18 +52,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <ImageView
+
+                    <RelativeLayout
                         android:id="@+id/btn_menu"
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/user_main_menu"
-                         />
-                        <!--android:background="#666666" />-->
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/user_main_menu"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/btnInfo"
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentRight="true">
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="24dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/user_main_info" />
+                    </RelativeLayout>
 
 
                     <RelativeLayout
@@ -71,37 +81,52 @@
                         android:layout_height="match_parent"
                         android:layout_below="@+id/btn_menu">
 
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/btnExit"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/user_main_icn" />
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/tv_storeName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="70dp"
-                            android:text="발급된 티켓이 없습니다."
-                            android:textColor="#666666" />
+                            android:layout_below="@+id/imageView3"
+                            android:layout_marginTop="20dp"
+                            android:text="STORE NAME"
+                            android:textColor="#ffffff"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="150dp"
-                            android:text="대기번호"
+                            android:layout_below="@+id/tv_storeName"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="50dp"
+                            android:text="발급된 대기번호"
                             android:textColor="#ffffff" />
 
                         <TextView
+                            android:id="@+id/tv_waitingNum"
                             android:text="000"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView2"
-                            android:layout_toRightOf="@+id/textView2"
-                            android:layout_marginLeft="20dp"
-                            android:id="@+id/tv_waitingNum"/>
+                            android:layout_below="@+id/textView2"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="60dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:text="2016.10.28 16:17:25"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_waitingNum"
+                            android:layout_centerHorizontal="true"/>
 
                         <TextView
                             android:id="@+id/textView3"
@@ -109,9 +134,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignLeft="@+id/textView2"
                             android:layout_alignStart="@+id/textView2"
-                            android:layout_below="@+id/textView2"
+                            android:layout_below="@+id/tv_time"
                             android:layout_marginTop="30dp"
-                            android:text="예상대기시간"
+                            android:text="예상 대기시간"
                             android:textColor="#ffffff" />
                         <TextView
                             android:text="000"
@@ -130,7 +155,7 @@
                             android:layout_alignStart="@+id/textView3"
                             android:layout_below="@+id/textView3"
                             android:layout_marginTop="30dp"
-                            android:text="남은대기팀수"
+                            android:text="남은 대기번호"
                             android:textColor="#ffffff" />
                         <TextView
                             android:text="000"
@@ -148,11 +173,12 @@
                             android:layout_height="wrap_content"></LinearLayout>
 
                         <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:id="@+id/iv_cancel"
+                            android:layout_width="200dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="20dp"
                             android:background="#999999" />
                     </RelativeLayout>
                 </RelativeLayout>

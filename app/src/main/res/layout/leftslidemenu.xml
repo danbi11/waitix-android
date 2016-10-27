@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="대기표"
+        android:text="현재 발급된 대기표"
         android:id="@+id/btn_waitingList"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
@@ -51,7 +51,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="사용가능매장 조회"
+        android:text="제휴 매장 대기 현황"
         android:id="@+id/btn_modify"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
@@ -66,7 +66,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="서비스 사용방법"
+        android:text="서비스 이용방법"
         android:id="@+id/btn_waitingClose"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
@@ -80,7 +80,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="회사 소개 및 제휴문의"
+        android:text="앱소개 및 제휴문의"
         android:id="@+id/btn_setting"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical|center_horizontal"
