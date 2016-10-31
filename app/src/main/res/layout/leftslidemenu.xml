@@ -1,95 +1,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/leftslidemenu"
-    android:layout_width="273dp"
+    android:layout_width="330dp"
     android:layout_height="match_parent"
-    android:background="#ff393c46"
-    android:orientation="vertical" >
+    android:background="#3e466a"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
-    <TextView
-        android:text="WAITIX"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
+    <ImageView
+        android:background="@drawable/user_menu_title"
+        android:layout_width="72.5dp"
+        android:layout_height="14dp"
         android:id="@+id/tv_storeName"
-        android:gravity="center_vertical|center_horizontal"
-        />
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"        />
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line0"
-        android:background="#999999" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="현재 발급된 대기표"
-        android:id="@+id/btn_waitingList"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#999999" />
+        android:id="@+id/btn_waiting"
+        android:layout_width="132dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="-50dp"
+        android:background="@drawable/user_menu_waitix" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="지난 대기표 조회"
+    <ImageView
         android:id="@+id/btn_pastWaitingList"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff" />
+        android:layout_width="132dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="-50dp"
+        android:background="@drawable/user_menu_last" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line1"
-        android:background="#999999" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="제휴 매장 대기 현황"
-        android:id="@+id/btn_modify"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff" />
+        android:id="@+id/btn_storeList"
+        android:layout_width="132dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="-50dp"
+        android:background="@drawable/user_menu_now" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line2"
-        android:background="#999999" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="서비스 이용방법"
-        android:id="@+id/btn_waitingClose"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff" />
+        android:id="@+id/btn_menual"
+        android:layout_width="132dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="-50dp"
+        android:background="@drawable/user_menu_use" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#999999" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="앱소개 및 제휴문의"
-        android:id="@+id/btn_setting"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#ffffff" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line3"
-        android:background="#999999" />
+        android:id="@+id/btn_intro"
+        android:layout_width="132dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="-50dp"
+        android:background="@drawable/user_menu_info" />
     
 </LinearLayout>

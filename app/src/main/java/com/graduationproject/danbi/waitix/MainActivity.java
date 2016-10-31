@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int leftMenuWidth;
     private static boolean isLeftExpanded;
     private RelativeLayout btn_menu;
-    private TextView btn_pastWaitingList;
+    private ImageView btn_waiting, btn_pastWaitingList,btn_storeList, btn_menual, btn_intro;
 
     /* NFC */
     private static final String MIMETYPE = "text/plain";
@@ -47,7 +47,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     ImageView iv_cancel;
 
     IssueCancelDialog issueCancelDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Tools.displayToast(this, "대기표를 발급받기 위해서는\nNFC 연결이 필요합니다.");
         }
 
-        tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum) ;
+        tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum);
         iv_cancel = (ImageView)findViewById(R.id.iv_cancel);
         iv_cancel.setOnClickListener(this);
     }
@@ -74,7 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // init left menu width
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        leftMenuWidth = (int) ((metrics.widthPixels) * 0.75);
+        leftMenuWidth = (int) ((metrics.widthPixels) * 0.85);
 
         // init main view
         ll_mainLayout = (LinearLayout) findViewById(R.id.ll_mainlayout);
@@ -94,9 +93,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btn_menu = (RelativeLayout) findViewById(R.id.btn_menu);
         btn_menu.setOnClickListener(this);
 
-        btn_pastWaitingList = (TextView) findViewById(R.id.btn_pastWaitingList);
+        btn_waiting = (ImageView) findViewById(R.id.btn_waiting);
+        btn_waiting.setOnClickListener(this);
+        btn_pastWaitingList = (ImageView) findViewById(R.id.btn_pastWaitingList);
         btn_pastWaitingList.setOnClickListener(this);
-
+        btn_storeList = (ImageView) findViewById(R.id.btn_storeList);
+        btn_storeList.setOnClickListener(this);
+        btn_menual = (ImageView) findViewById(R.id.btn_menual);
+        btn_menual.setOnClickListener(this);
+        btn_intro = (ImageView) findViewById(R.id.btn_intro);
+        btn_intro.setOnClickListener(this);
 
     }
 
@@ -115,7 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             // Expand
             new ExpandAnimation(ll_mainLayout, leftMenuWidth, "left",
                     Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.75f, 0, 0.0f, 0, 0.0f);
+                    Animation.RELATIVE_TO_SELF, 0.85f, 0, 0.0f, 0, 0.0f);
 
             // disable all of main view
             FrameLayout viewGroup = (FrameLayout) findViewById(R.id.ll_fragment)
@@ -142,7 +148,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             // close
             new CloseAnimation(ll_mainLayout, leftMenuWidth,
-                    TranslateAnimation.RELATIVE_TO_SELF, 0.75f,
+                    TranslateAnimation.RELATIVE_TO_SELF, 0.85f,
                     TranslateAnimation.RELATIVE_TO_SELF, 0.0f, 0, 0.0f, 0, 0.0f);
 
             // enable all of main view
@@ -242,12 +248,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         }).show(); // 팝업창 보여줌*/
                 break;
 
+            case R.id.btn_waiting:
+                Intent intentToMain = new Intent(getApplicationContext(), MainActivity.class);
+                isLeftExpanded = false;
+                finish();
+                startActivity(intentToMain);
+                break;
+
             case R.id.btn_pastWaitingList:
                 Intent intentToWaitingList = new Intent(getApplicationContext(), WaitingListActivity.class);
                 isLeftExpanded = false;
                 finish();
                 startActivity(intentToWaitingList);
                 break;
+            case R.id.btn_storeList:
+                Intent intentToStoreList = new Intent(getApplicationContext(), StoreListActivity.class);
+                isLeftExpanded = false;
+                finish();
+                startActivity(intentToStoreList);
+                break;
+
+            case R.id.btn_menual:
+                Intent intentToManual = new Intent(getApplicationContext(), ManualActivity.class);
+                isLeftExpanded = false;
+                startActivity(intentToManual);
+                break;
+
+            case R.id.btn_intro:
+                Intent intentToIntro = new Intent(getApplicationContext(), IntroActivity.class);
+                menuLeftSlideAnimationToggle();
+                startActivity(intentToIntro);
+                break;
+
 
 
         }

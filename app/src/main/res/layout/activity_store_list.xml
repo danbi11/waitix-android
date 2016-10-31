@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.graduationproject.danbi.waitix.WaitingListActivity">
+    tools:context="com.graduationproject.danbi.waitix.StoreListActivity">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -68,27 +68,28 @@
                                 android:background="@drawable/user_main_menu"/>
                         </RelativeLayout>
 
-                    <TextView
-                        android:text="지난 대기표 조회"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/textView5"
-                        android:textColor="#ffffff"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        <TextView
+                            android:text="제휴 매장 대기 현황"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/textView5"
+                            android:textColor="#ffffff"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
                     </RelativeLayout>
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/RelativeLayout">
                         <ListView
-                            android:id="@+id/listView_waitinglist"
+                            android:id="@+id/listView_storelist"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:dividerHeight="0dp"
+                            android:divider="#ffffff" />
                     </RelativeLayout>
                 </RelativeLayout>
 

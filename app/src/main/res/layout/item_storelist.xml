@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/user_store_list_ov">
+
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="STORE NAME"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:id="@+id/tv_storeName"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="11dp"
+                android:layout_below="@+id/tv_storeName"
+                android:layout_alignLeft="@+id/tv_storeName"
+                android:layout_alignStart="@+id/tv_storeName"
+                android:layout_marginTop="3dp"
+                android:id="@+id/imageView2"
+                android:background="@drawable/user_store_list_place" />
+
+            <TextView
+                android:text="location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView2"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_toEndOf="@+id/imageView2"
+                android:layout_marginLeft="7dp"
+                android:layout_marginBottom="-3dp"
+                android:id="@+id/tv_location"
+                android:textColor="#ffffff"
+                android:textSize="13sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            >
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/user_store_list_clock"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:text="00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView4"
+                android:layout_toEndOf="@+id/imageView4"
+                android:layout_marginLeft="3dp"
+                android:id="@+id/tv_time"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:text="분"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_time"
+                android:layout_toEndOf="@+id/tv_time"
+                android:id="@+id/textView12"
+                android:textColor="#ffffff" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView12"
+                android:layout_marginLeft="6dp"
+                android:id="@+id/imageView5"
+                android:background="@drawable/user_store_list_people" />
+
+            <TextView
+                android:id="@+id/tv_waitingNum"
+                android:text="00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView5"
+                android:layout_toEndOf="@+id/imageView5"
+                android:layout_marginLeft="3dp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:text="팀"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_waitingNum"
+                android:layout_toEndOf="@+id/tv_waitingNum"
+                android:id="@+id/textView16"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

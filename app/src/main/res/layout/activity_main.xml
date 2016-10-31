@@ -39,7 +39,7 @@
             android:id="@+id/ll_mainlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/user_main_bg"
+            android:background="@drawable/user_issue_bg"
             android:gravity="left"
             android:orientation="vertical">
 
@@ -72,42 +72,40 @@
                             android:layout_width="70dp"
                             android:layout_height="24dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/user_main_info" />
+                            android:background="@drawable/user_issue_info_btn" />
                     </RelativeLayout>
-
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@+id/btn_menu"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/user_main_icn" />
+                    <TextView
+                        android:id="@+id/tv_storeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/imageView3"
+                        android:layout_marginTop="20dp"
+                        android:text="STORE NAME"
+                        android:textColor="#ffffff"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/btn_menu">
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_below="@+id/btnExit"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/user_main_icn" />
-                        <TextView
-                            android:id="@+id/tv_storeName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/imageView3"
-                            android:layout_marginTop="20dp"
-                            android:text="STORE NAME"
-                            android:textColor="#ffffff"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-
+                        android:layout_width="335dp"
+                        android:layout_height="427dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/user_issue_box">
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_storeName"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="50dp"
+                            android:layout_marginTop="20dp"
                             android:text="발급된 대기번호"
                             android:textColor="#ffffff" />
 
@@ -118,7 +116,10 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView2"
                             android:layout_centerHorizontal="true"
-                            android:textSize="60dp"/>
+                            android:layout_marginTop="50dp"
+                            android:textSize="60dp"
+                            android:textStyle="bold"
+                            android:textColor="#4a7a9c"/>
 
                         <TextView
                             android:id="@+id/tv_time"
@@ -126,45 +127,54 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_waitingNum"
-                            android:layout_centerHorizontal="true"/>
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#999999"/>
 
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/textView2"
-                            android:layout_alignStart="@+id/textView2"
                             android:layout_below="@+id/tv_time"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="60dp"
+                            android:layout_marginLeft="50dp"
                             android:text="예상 대기시간"
-                            android:textColor="#ffffff" />
+                            android:textColor="#888888" />
                         <TextView
-                            android:text="000"
+                            android:text="000분"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView3"
-                            android:layout_toRightOf="@+id/textView3"
-                            android:layout_marginLeft="20dp"
-                            android:id="@+id/tv_waitingTime"/>
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_alignLeft="@+id/textView3"
+                            android:layout_below="@+id/textView3"
+                            android:id="@+id/tv_waitingTime"
+                            android:textColor="#888888"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/textView3"
-                            android:layout_alignStart="@+id/textView3"
-                            android:layout_below="@+id/textView3"
-                            android:layout_marginTop="30dp"
+                            android:layout_alignBottom="@+id/textView3"
+                            android:layout_toRightOf="@+id/textView3"
+                            android:layout_marginLeft="70dp"
                             android:text="남은 대기번호"
-                            android:textColor="#ffffff" />
+                            android:textColor="#888888" />
                         <TextView
-                            android:text="000"
+                            android:text="000번"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView4"
-                            android:layout_toRightOf="@+id/textView4"
-                            android:layout_marginLeft="20dp"
-                            android:id="@+id/tv_waitingTeam"/>
+                            android:layout_marginLeft="15dp"
+                            android:layout_alignLeft="@+id/textView4"
+                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/textView4"
+                            android:id="@+id/tv_waitingTeam"
+                            android:textColor="#888888"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
+
 
                         <LinearLayout
                             android:id="@+id/contents"
@@ -174,12 +184,12 @@
 
                         <ImageView
                             android:id="@+id/iv_cancel"
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
+                            android:layout_width="160dp"
+                            android:layout_height="37dp"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="20dp"
-                            android:background="#999999" />
+                            android:layout_marginBottom="25dp"
+                            android:background="@drawable/user_issue_cancel_btn" />
                     </RelativeLayout>
                 </RelativeLayout>
 
