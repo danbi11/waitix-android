@@ -13,44 +13,65 @@
         android:layout_height="14dp"
         android:id="@+id/tv_storeName"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"        />
-    <ImageView
+        android:layout_marginBottom="80dp" />
+
+    <RelativeLayout
         android:id="@+id/btn_waiting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+    <ImageView
         android:layout_width="132dp"
         android:layout_height="15dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="-50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/user_menu_waitix" />
+    </RelativeLayout>
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/btn_pastWaitingList"
-        android:layout_width="132dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="-50dp"
-        android:background="@drawable/user_menu_last" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+        <ImageView
+            android:layout_width="132dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/user_menu_last" />
+    </RelativeLayout>
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/btn_storeList"
-        android:layout_width="132dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="-50dp"
-        android:background="@drawable/user_menu_now" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+        <ImageView
+            android:layout_width="132dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/user_menu_now" />
+    </RelativeLayout>
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/btn_menual"
-        android:layout_width="132dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="-50dp"
-        android:background="@drawable/user_menu_use" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+        <ImageView
+            android:layout_width="132dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/user_menu_use" />
+    </RelativeLayout>
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/btn_intro"
-        android:layout_width="132dp"
-        android:layout_height="15dp"
-        android:layout_marginLeft="-50dp"
-        android:background="@drawable/user_menu_info" />
-    
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+        <ImageView
+            android:layout_width="132dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/user_menu_info" />
+    </RelativeLayout>
 </LinearLayout>

@@ -137,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_time"
                             android:layout_marginTop="60dp"
-                            android:layout_marginLeft="50dp"
+                            android:layout_marginLeft="60dp"
                             android:text="예상 대기시간"
                             android:textColor="#888888" />
                         <TextView
@@ -145,7 +145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_alignLeft="@+id/textView3"
                             android:layout_below="@+id/textView3"
                             android:id="@+id/tv_waitingTime"
@@ -159,14 +159,14 @@
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/textView3"
                             android:layout_toRightOf="@+id/textView3"
-                            android:layout_marginLeft="70dp"
+                            android:layout_marginLeft="80dp"
                             android:text="남은 대기번호"
                             android:textColor="#888888" />
                         <TextView
                             android:text="000번"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_alignLeft="@+id/textView4"
                             android:layout_marginTop="10dp"
                             android:layout_below="@+id/textView4"
@@ -174,7 +174,6 @@
                             android:textColor="#888888"
                             android:textSize="20dp"
                             android:textStyle="bold"/>
-
 
                         <LinearLayout
                             android:id="@+id/contents"

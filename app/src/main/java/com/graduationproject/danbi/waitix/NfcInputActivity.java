@@ -35,6 +35,14 @@ public class NfcInputActivity extends Activity implements View.OnClickListener{
         tv_waittingNum = (TextView)findViewById(R.id.tv_waittingNum);
         tv_waittingTime = (TextView)findViewById(R.id.tv_waittingTime);
 
+        Bundle bundle = getIntent().getExtras();
+        String totalPon = bundle.getString("totalPon", null);
+        String storeName = bundle.getString("storeName", null);
+        String totalWaittime = bundle.getString("totalWaittime", null);
+
+        tv_pon.setText(totalPon);
+        tv_storeName.setText(storeName);
+        tv_waittingTime.setText(totalWaittime);
     }
 
     @Override

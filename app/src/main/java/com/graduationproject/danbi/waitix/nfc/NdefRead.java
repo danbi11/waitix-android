@@ -48,7 +48,6 @@ public class NdefRead extends AsyncTask<Ndef, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        afterNfcRead.afterRead();
+        afterNfcRead.afterRead(s);
     }
-
 }

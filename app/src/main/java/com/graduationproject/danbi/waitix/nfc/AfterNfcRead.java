@@ -5,5 +5,5 @@ package com.graduationproject.danbi.waitix.nfc;
  */
 
 public interface AfterNfcRead {
-    void afterRead();
+    void afterRead(String s);
 }

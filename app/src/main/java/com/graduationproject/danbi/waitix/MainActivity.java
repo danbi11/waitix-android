@@ -1,12 +1,17 @@
 package com.graduationproject.danbi.waitix;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +24,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.graduationproject.danbi.waitix.anim.CloseAnimation;
 import com.graduationproject.danbi.waitix.anim.ExpandAnimation;
 import com.graduationproject.danbi.waitix.nfc.AfterNfcRead;
 import com.graduationproject.danbi.waitix.nfc.NdefRead;
 import com.graduationproject.danbi.waitix.nfc.Tools;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -35,26 +51,88 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private FrameLayout.LayoutParams leftMenuLayoutPrams;
     private int leftMenuWidth;
     private static boolean isLeftExpanded;
-    private RelativeLayout btn_menu;
-    private ImageView btn_waiting, btn_pastWaitingList,btn_storeList, btn_menual, btn_intro;
+    private RelativeLayout btn_menu, btnInfo, btn_waiting, btn_pastWaitingList,btn_storeList, btn_menual, btn_intro;
 
     /* NFC */
     private static final String MIMETYPE = "text/plain";
     private NfcAdapter nfcAdapter;
 
-    /*  */
+
+
+    /* etc */
     private TextView tv_waitingNum;
     ImageView iv_cancel;
+    private BackPressCloseHandler backPressCloseHandler; //뒤로가기 두번눌러종료
+    public static boolean isFirstEnter = true;  //처음만 splash 화면 나오기
 
     IssueCancelDialog issueCancelDialog;
+    StoreInfoDialog storeInfoDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* splash 화면 띄우기 */
+        if (isFirstEnter){
+            startActivity(new Intent(this, SplashActivity.class));
+            isFirstEnter = false;
+        }
+
+        /* 슬라이딩 메뉴 */
         initSildeMenu();
 
+        /* 뒤로가기 두번눌러종료 */
+        backPressCloseHandler = new BackPressCloseHandler(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
+        String unum = sharedPreferences.getString("unum", null);
+        if (unum == null) {
+            final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+            final String tmDevice, tmSerial, androidId;
+            tmDevice = "" + tm.getDeviceId();
+            tmSerial = "" + tm.getSimSerialNumber();
+            androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+            UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+            String deviceId = deviceUuid.toString();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("unum", deviceId);
+            editor.commit();
+
+            ServerNetworkManager serverRequest = ServerNetworkManager.newInstance();
+            List<Pair<String, String>> parameters = new ArrayList<Pair<String, String>>();
+            parameters.add(Pair.create("unum", deviceId));
+            serverRequest.get("user_register.php", parameters, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String body = response.body().string();
+                                Log.d("response", body);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                response.close();
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(Tools.checkNFC(nfcAdapter)) {
@@ -66,6 +144,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum);
         iv_cancel = (ImageView)findViewById(R.id.iv_cancel);
         iv_cancel.setOnClickListener(this);
+        btnInfo = (RelativeLayout)findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(this);
     }
 
     private void initSildeMenu() {
@@ -93,15 +173,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btn_menu = (RelativeLayout) findViewById(R.id.btn_menu);
         btn_menu.setOnClickListener(this);
 
-        btn_waiting = (ImageView) findViewById(R.id.btn_waiting);
+        btn_waiting = (RelativeLayout) findViewById(R.id.btn_waiting);
         btn_waiting.setOnClickListener(this);
-        btn_pastWaitingList = (ImageView) findViewById(R.id.btn_pastWaitingList);
+        btn_pastWaitingList = (RelativeLayout) findViewById(R.id.btn_pastWaitingList);
         btn_pastWaitingList.setOnClickListener(this);
-        btn_storeList = (ImageView) findViewById(R.id.btn_storeList);
+        btn_storeList = (RelativeLayout) findViewById(R.id.btn_storeList);
         btn_storeList.setOnClickListener(this);
-        btn_menual = (ImageView) findViewById(R.id.btn_menual);
+        btn_menual = (RelativeLayout) findViewById(R.id.btn_menual);
         btn_menual.setOnClickListener(this);
-        btn_intro = (ImageView) findViewById(R.id.btn_intro);
+        btn_intro = (RelativeLayout) findViewById(R.id.btn_intro);
         btn_intro.setOnClickListener(this);
 
     }
@@ -209,9 +289,55 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 NdefRead ndefRead = new NdefRead(getApplicationContext(), new AfterNfcRead() {
                     @Override
-                    public void afterRead() {
-                        Intent intentToMain = new Intent(getApplicationContext(), NfcInputActivity.class);
-                        startActivity(intentToMain);
+                    public void afterRead(String snum) {
+
+                        ServerNetworkManager serverNetworkManager = ServerNetworkManager.newInstance();
+
+                        List<Pair<String, String>> parameters = new ArrayList<Pair<String, String>>();
+                        parameters.add(Pair.create("snum", snum));
+
+                        Toast.makeText(MainActivity.this, snum, Toast.LENGTH_SHORT).show(); //임시
+
+                        serverNetworkManager.get("store_current.php", parameters, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                e.printStackTrace();
+//                                Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, final Response response) throws IOException {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            String body = response.body().string();
+                                            Log.d("response", body);
+
+                                            Gson gson = new Gson();
+                                            JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
+
+                                            JsonObject jsonObject2 = jsonObject.getAsJsonObject("store");
+                                            String storeName = jsonObject2.get("store_name").getAsString();
+                                            String totalPon = jsonObject2.get("total_pon").getAsString();
+                                            String totalWaittime = jsonObject2.get("total_waittime").getAsString();
+
+                                            Intent intentToNFC = new Intent(getApplicationContext(), NfcInputActivity.class);
+                                            intentToNFC.putExtra("storeName", storeName);
+                                            intentToNFC.putExtra("totalPon", totalPon);
+                                            intentToNFC.putExtra("totalWaittime", totalWaittime);
+                                            startActivity(intentToNFC);
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                                        } finally {
+                                            response.close();
+                                        }
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
                 ndefRead.execute(Ndef.get(nfcTag));
@@ -246,6 +372,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 //닫기 버튼을 누르면 아무것도 안하고 닫기 때문에 그냥 비움
                             }
                         }).show(); // 팝업창 보여줌*/
+                break;
+
+            case R.id.btnInfo:
+                storeInfoDialog = new StoreInfoDialog(MainActivity.this);
+                storeInfoDialog.show();
                 break;
 
             case R.id.btn_waiting:
@@ -289,8 +420,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (isLeftExpanded){
             menuLeftSlideAnimationToggle();
         }else {
-            Toast.makeText(this, "WAITIX를 종료합니다.", Toast.LENGTH_SHORT).show();
-            super.onBackPressed();
+//            super.onBackPressed();
+            backPressCloseHandler.onBackPressed();
         }
     }
 }

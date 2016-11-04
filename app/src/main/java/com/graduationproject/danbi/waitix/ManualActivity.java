@@ -7,12 +7,18 @@ import android.view.View;
 
 public class ManualActivity extends Activity {
 
+    /* 뒤로가기 두번눌러종료 */
+    private BackPressCloseHandler backPressCloseHandler;
+
     ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menual);
+
+        /* 뒤로가기 두번눌러종료 */
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         pager = (ViewPager)findViewById(R.id.pager);
 

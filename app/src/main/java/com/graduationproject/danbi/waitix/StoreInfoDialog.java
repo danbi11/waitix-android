@@ -1,30 +1,32 @@
 package com.graduationproject.danbi.waitix;
 
-import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-public class IntroActivity extends Activity {
+/**
+ * Created by danbi_000 on 2016-11-04.
+ */
 
-    /* 뒤로가기 두번눌러종료 */
-    private BackPressCloseHandler backPressCloseHandler;
+public class StoreInfoDialog extends Dialog{
+    private RelativeLayout btnExit;
 
-    RelativeLayout btnExit;
+    public StoreInfoDialog(Context context) {
+        super(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
-
-        /* 뒤로가기 두번눌러종료 */
-        backPressCloseHandler = new BackPressCloseHandler(this);
+        setContentView(R.layout.dialog_store_info);
 
         btnExit = (RelativeLayout)findViewById(R.id.btnExit);
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                cancel();
             }
         });
     }

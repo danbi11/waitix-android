@@ -1,25 +1,90 @@
 package com.graduationproject.danbi.waitix;
 
-import retrofit2.Retrofit;
+import android.support.v4.util.Pair;
+
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.List;
+
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 /**
  * Created by danbi_000 on 2016-10-16.
  */
 
-//private static final String SERVER_URL = "https://api.server.net/"; //2부터 url뒤에 /를 입력해야 합니다.
-//private static OkHttpClient client;
 
 public class ServerNetworkManager {
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://127.0.0.1/")
-            .build();
 
-/*
-            .client(client)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //Rxandroid를 사용하기 위해 추가(옵션)
-            .addConverterFactory(GsonConverterFactory.create()) //Json Parser 추가
-            .build().create(Retrofit.class); //인터페이스 연결
-*/
+    //    public static final String HOST = "192.168.0.4";  //nbfi
+//    public static final String HOST = "10.0.2.2";
+    public static final String HOST = "192.168.0.21";
 
-    APIService service = retrofit.create(APIService.class);
+    private OkHttpClient client;
+    public CookieManager cookieManager;
+
+    private static ServerNetworkManager instance;
+
+    public static ServerNetworkManager newInstance() {
+        if (instance == null) {
+            instance = new ServerNetworkManager();
+            return instance;
+        }
+        return instance;
+    }
+
+    public ServerNetworkManager() {
+        cookieManager  = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        client = new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(cookieManager))
+                .build();
+    }
+
+    public void post(String url, List<Pair<String, String>> parameters, Callback callback) {
+        FormBody.Builder formBody = new FormBody.Builder();
+        for (Pair<String, String> parameter : parameters) {
+            formBody.add(parameter.first, parameter.second);
+        }
+
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("http")
+                .host(HOST)
+                .port(8080)
+                .addPathSegment(url).build();
+        try {
+            Request request = new Request.Builder()
+                    .url(httpUrl)
+                    .post(formBody.build())
+                    .build();
+            client.newCall(request).enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void get(String url, List<Pair<String, String>> parameters, Callback callback) {
+        HttpUrl.Builder httpUrl = new HttpUrl.Builder()
+                .scheme("http")
+                .host(HOST)
+                .port(8080)
+                .addPathSegment(url);
+        for (Pair<String, String> parameter : parameters) {
+            httpUrl.addQueryParameter(parameter.first, parameter.second);
+        }
+
+        try {
+            Request request = new Request.Builder()
+                    .url(httpUrl.build())
+                    .build();
+            client.newCall(request).enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

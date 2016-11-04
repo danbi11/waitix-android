@@ -33,7 +33,6 @@ public class IssueCancelDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnNo:
-                Toast.makeText(getContext(),"no",Toast.LENGTH_SHORT).show();
                 cancel();
                 break;
             case R.id.btnYes:
