@@ -76,7 +76,7 @@ public class StoreListActivity extends Activity implements View.OnClickListener,
 
         ServerNetworkManager serverNetworkManager = ServerNetworkManager.newInstance();
 
-        List<Pair<String, String>> parameters = new ArrayList<Pair<String, String>>();
+        List<Pair<String, ?>> parameters = new ArrayList<Pair<String, ?>>();
         parameters.add(Pair.create("snum", "38"));
         parameters.add(Pair.create("snum", "38"));
 //

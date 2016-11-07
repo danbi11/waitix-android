@@ -41,7 +41,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/user_issue_bg"
             android:gravity="left"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -89,7 +90,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/imageView3"
                         android:layout_marginTop="20dp"
-                        android:text="STORE NAME"
+                        android:text="발급받은 대기번호가 없습니다"
                         android:textColor="#ffffff"
                         android:textSize="20dp"
                         android:textStyle="bold"/>

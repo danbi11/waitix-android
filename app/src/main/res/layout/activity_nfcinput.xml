@@ -82,7 +82,7 @@
     <TextView
         android:id="@+id/tv_pon"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:text="01"
         android:textColor="#FFFFFF"
         android:textSize="60dp"
@@ -90,7 +90,7 @@
     <TextView
         android:id="@+id/tv_ponText"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_toRightOf="@+id/tv_pon"
         android:layout_centerHorizontal="true"
         android:text="명"
@@ -142,23 +142,25 @@
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="18dp">
+            android:layout_height="20dp"
+            android:gravity="bottom">
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="현재 "
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                />
 
             <TextView
                 android:id="@+id/tv_waittingNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/textView9"
-                android:layout_alignBottom="@+id/textView9"
                 android:text="0팀"
                 android:textColor="#ffffff"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -166,29 +168,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_waittingNum"
-                android:layout_alignBottom="@+id/textView9"
                 android:text="이 대기중이며 "
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                />
 
             <TextView
                 android:id="@+id/tv_waittingTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/textView11"
-                android:layout_alignBottom="@+id/textView9"
                 android:text="약 00분"
                 android:textColor="#ffffff"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textSize="15dp"
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_waittingTime"
-                android:layout_alignBottom="@+id/textView9"
                 android:text=" 소요됩니다"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                />
         </RelativeLayout>
 
     </LinearLayout>

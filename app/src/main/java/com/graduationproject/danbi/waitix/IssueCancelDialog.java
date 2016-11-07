@@ -16,6 +16,10 @@ public class IssueCancelDialog extends Dialog implements View.OnClickListener {
 
     public IssueCancelDialog(Context context) {
         super(context);
+
+//        LayoutInflater inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View view = inflater.inflate(R.layout.activity_main, null);
+
     }
 
     @Override
@@ -37,9 +41,16 @@ public class IssueCancelDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.btnYes:
                 Toast.makeText(getContext(),"발급이 취소되었습니다.",Toast.LENGTH_SHORT).show();
+//
+//                LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                View view = inflater.inflate(R.layout.activity_main, null);
+////                Button btn = (Button)view.findViewById(R.id.tv_storeName);
+//                TextView tv_storeName = (TextView)view.findViewById(R.id.tv_storeName);
+
+//                tv_storeName.setText("발급받은 대기번호가 없습니다.");
+
                 dismiss();
                 break;
         }
-
     }
 }

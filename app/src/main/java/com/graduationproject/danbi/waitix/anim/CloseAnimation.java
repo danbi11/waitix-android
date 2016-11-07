@@ -40,6 +40,8 @@ public class CloseAnimation extends TranslateAnimation implements
 		slidingLayout.requestLayout();
 		slidingLayout.startAnimation(this);
 
+		slidingLayout.setClickable(true);	//아래 깔린 메뉴 클릭 안되게
+
 	}
 
 	public void onAnimationEnd(Animation animation) {

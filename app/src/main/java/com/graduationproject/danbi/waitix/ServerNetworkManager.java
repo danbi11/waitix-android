@@ -22,7 +22,9 @@ public class ServerNetworkManager {
 
     //    public static final String HOST = "192.168.0.4";  //nbfi
 //    public static final String HOST = "10.0.2.2";
-    public static final String HOST = "192.168.0.21";
+//    public static final String HOST = "192.168.100.102";
+//    public static final String HOST = "192.168.43.247"; //단비파이
+    public static final String HOST = "172.17.14.86"; //아우내
 
     private OkHttpClient client;
     public CookieManager cookieManager;
@@ -67,14 +69,14 @@ public class ServerNetworkManager {
         }
     }
 
-    public void get(String url, List<Pair<String, String>> parameters, Callback callback) {
+    public void get(String url, List<Pair<String, ?>> parameters, Callback callback) {
         HttpUrl.Builder httpUrl = new HttpUrl.Builder()
                 .scheme("http")
                 .host(HOST)
                 .port(8080)
                 .addPathSegment(url);
-        for (Pair<String, String> parameter : parameters) {
-            httpUrl.addQueryParameter(parameter.first, parameter.second);
+        for (Pair<String, ?> parameter : parameters) {
+            httpUrl.addQueryParameter(parameter.first, String.valueOf(parameter.second));
         }
 
         try {

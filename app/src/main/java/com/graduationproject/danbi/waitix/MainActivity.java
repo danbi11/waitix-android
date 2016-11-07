@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 import com.graduationproject.danbi.waitix.anim.CloseAnimation;
 import com.graduationproject.danbi.waitix.anim.ExpandAnimation;
 import com.graduationproject.danbi.waitix.nfc.AfterNfcRead;
@@ -33,6 +34,7 @@ import com.graduationproject.danbi.waitix.nfc.NdefRead;
 import com.graduationproject.danbi.waitix.nfc.Tools;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -60,10 +62,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     /* etc */
-    private TextView tv_waitingNum;
+    public TextView tv_waitingNum, tv_storeName, tv_time, tv_waitingTeam, tv_waitingTime;
     ImageView iv_cancel;
     private BackPressCloseHandler backPressCloseHandler; //뒤로가기 두번눌러종료
     public static boolean isFirstEnter = true;  //처음만 splash 화면 나오기
+//    final String snum = null;
 
     IssueCancelDialog issueCancelDialog;
     StoreInfoDialog storeInfoDialog;
@@ -73,18 +76,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         /* splash 화면 띄우기 */
         if (isFirstEnter){
             startActivity(new Intent(this, SplashActivity.class));
             isFirstEnter = false;
         }
 
+
         /* 슬라이딩 메뉴 */
         initSildeMenu();
+
 
         /* 뒤로가기 두번눌러종료 */
         backPressCloseHandler = new BackPressCloseHandler(this);
 
+
+        /* uuid 생성 */
         SharedPreferences sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
         String unum = sharedPreferences.getString("unum", null);
         if (unum == null) {
@@ -101,7 +109,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             editor.commit();
 
             ServerNetworkManager serverRequest = ServerNetworkManager.newInstance();
-            List<Pair<String, String>> parameters = new ArrayList<Pair<String, String>>();
+            List<Pair<String, ?>> parameters = new ArrayList<Pair<String, ?>>();
             parameters.add(Pair.create("unum", deviceId));
             serverRequest.get("user_register.php", parameters, new Callback() {
                 @Override
@@ -134,12 +142,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
             });
         }
 
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(Tools.checkNFC(nfcAdapter)) {
             intentHandler(getIntent());
         } else {
             Tools.displayToast(this, "대기표를 발급받기 위해서는\nNFC 연결이 필요합니다.");
         }
+
+
+        tv_storeName = (TextView)findViewById(R.id.tv_storeName);
+        tv_time = (TextView) findViewById(R.id.tv_time);
+        tv_waitingTime = (TextView) findViewById(R.id.tv_waitingTime);
+        tv_waitingTeam = (TextView) findViewById(R.id.tv_waitingTeam);
+
+/*
+        Bundle bundle = getIntent().getExtras();
+        String storeName = bundle.getString("storeName", null);
+        String pon = bundle.getString("pon", null);
+        String date = bundle.getString("date", null);
+        String waitpon = bundle.getString("waitpon", null);
+        String waittime = bundle.getString("waittime",null);
+
+        tv_storeName.setText(storeName);
+        tv_time.setText(date);
+        tv_waitingTeam.setText(waitpon);
+        tv_waitingTime.setText(waittime);
+*/
+
+
 
         tv_waitingNum = (TextView)findViewById(R.id.tv_waitingNum);
         iv_cancel = (ImageView)findViewById(R.id.iv_cancel);
@@ -289,11 +320,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 NdefRead ndefRead = new NdefRead(getApplicationContext(), new AfterNfcRead() {
                     @Override
-                    public void afterRead(String snum) {
+                    public void afterRead(final String snum) {
 
                         ServerNetworkManager serverNetworkManager = ServerNetworkManager.newInstance();
 
-                        List<Pair<String, String>> parameters = new ArrayList<Pair<String, String>>();
+                        List<Pair<String, ?>> parameters = new ArrayList<Pair<String, ?>>();
                         parameters.add(Pair.create("snum", snum));
 
                         Toast.makeText(MainActivity.this, snum, Toast.LENGTH_SHORT).show(); //임시
@@ -314,10 +345,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                             String body = response.body().string();
                                             Log.d("response", body);
 
-                                            Gson gson = new Gson();
-                                            JsonObject jsonObject = gson.fromJson(body, JsonObject.class);
+                                            body = body.replaceAll("\\s", "");
+                                            body = body.trim();
+                                            body = body.replaceAll("\uFEFF", "");
 
-                                            JsonObject jsonObject2 = jsonObject.getAsJsonObject("store");
+                                            Gson gson = new Gson();
+                                            JsonReader reader = new JsonReader(new StringReader(body));
+                                            reader.setLenient(true);
+                                            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+
+                                            JsonObject jsonObject2 = jsonObject.get("store").getAsJsonObject();
                                             String storeName = jsonObject2.get("store_name").getAsString();
                                             String totalPon = jsonObject2.get("total_pon").getAsString();
                                             String totalWaittime = jsonObject2.get("total_waittime").getAsString();
@@ -326,7 +363,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                             intentToNFC.putExtra("storeName", storeName);
                                             intentToNFC.putExtra("totalPon", totalPon);
                                             intentToNFC.putExtra("totalWaittime", totalWaittime);
+                                            intentToNFC.putExtra("snum", snum);
                                             startActivity(intentToNFC);
+
+
+
+                                            tv_storeName.setText(storeName);
+                                            tv_waitingTeam.setText(String.format("%03d", Integer.parseInt(totalPon)) + "번");
+                                            tv_waitingTime.setText(String.format("%03d", Integer.parseInt(totalPon)*3) + "분");
+                                            tv_waitingNum.setText(String.format("%03d", Integer.parseInt(totalPon)));
+
 
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -338,10 +384,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 });
                             }
                         });
+
+
                     }
                 });
                 ndefRead.execute(Ndef.get(nfcTag));
-                tv_waitingNum.setText("");
+//                tv_waitingNum.setText("");
 
             } else {
                 Tools.displayToast(getApplicationContext(), "Mime type error.");
@@ -363,15 +411,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 issueCancelDialog = new IssueCancelDialog(MainActivity.this);
                 issueCancelDialog.show();
 
+                tv_storeName.setText("발급받은 대기번호가 없습니다");
+                tv_waitingNum.setText("000");
+                tv_waitingTime.setText("000분");
+                tv_waitingTeam.setText("000번");
+                tv_time.setText("2000.00.00 00:00:00");
+
+
                 /*
                 new AlertDialog.Builder(this)
-//                        .setTitle("히든목록") //팝업창 타이틀바
+//                      .setTitle("히든목록") //팝업창 타이틀바
                         .setMessage("정말 취소하시겠습니까?")  //팝업창 내용
-                        .setNeutralButton("닫기",new DialogInterface.OnClickListener() {
+                        .setNeutralButton("닫기", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dlg, int sumthin) {
                                 //닫기 버튼을 누르면 아무것도 안하고 닫기 때문에 그냥 비움
                             }
-                        }).show(); // 팝업창 보여줌*/
+                        }).show(); // 팝업창 보여줌 */
                 break;
 
             case R.id.btnInfo:
